@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Schedule
+{% endblock %}
+
+{% block main %}
+
+
+<form action="/schecomp" method="post">
+
+    <div class="container">
+
+        <div class="container text-center mb-3">
+
+            <div class="row">
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-success" type="submit">Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container-sm">
+        <div class="container-sm">
+
+            {% for day in days %}
+
+            <ul class="list-group mt-4 mb-4">
+                <li class="list-group-item list-group-item-dark">
+                    <div class="container text-center">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Title:
+                            </div>
+                            <div class="col">
+                                Amount Needed:
+                            </div>
+                            <div class="col">
+                                Amount Scheduled:
+                            </div>
+                            <div class="col">
+                                <span class="badge bg-dark rounded-pill">{{ day }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+                {% for title in manager_list %}
+
+                    {% if title.day == day %}
+
+                        <li class="list-group-item list-group-item-success mt-4">
+                            <div class="container text-center">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        {{ title.title }}
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge bg-success rounded-pill">{{ title.amount }}</span>
+                                    </div>
+                                    <div class="col">
+                                        {% if title.amount == title.listed %}
+                                            <span class="badge bg-success rounded-pill">{{ title.listed }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger rounded-pill">{{ title.listed }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                            {% for emp in list_emp %}
+
+                                {% for x in range(title_range) %}
+
+                                    {% if (mega_list[emp][x]['title_index'] == title.id) and (mega_list[emp][x]['status'] == 'yes') %}
+
+                                        <li class="list-group-item">
+                                            <div class="container text-center">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        {% for name in names %}
+
+                                                            {% if name.username == emp %}
+
+                                                                {{ name.name }}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </div>
+                                                    <div class="col">
+
+                                                    </div>
+                                                    <div class="col">
+
+                                                    </div>
+                                                    <div class="col">
+
+                                                        {% set person = [{"username":emp,"title_id": title.id}] %}
+
+
+                                                        <input class="form-check-input" type="checkbox" id="{{ emp }}" name="{{ emp }}" value="{{ person }}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    {% endif %}
+
+
+                                {% endfor %}
+
+                            {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+</form>
+
+{% endblock %}

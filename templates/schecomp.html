@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Schedule
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="container">
+
+        <div class="container text-center mb-3">
+
+            <div class="row">
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container-sm">
+        <div class="container-sm">
+
+            {% for day in days %}
+
+            <ul class="list-group mt-4 mb-4">
+                <li class="list-group-item list-group-item-success">
+                    <div class="container text-center">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Title:
+                            </div>
+                            <div class="col">
+
+                            </div>
+                            <div class="col">
+                                Amount Scheduled:
+                            </div>
+
+                            <div class="col">
+                                {{ day }}:
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+                {% for title in manager_list %}
+
+                    {% if title.day == day %}
+
+                        <li class="list-group-item list-group-item-secondary mt-4">
+                            <div class="container text-center">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        {{ title.title }}
+                                    </div>
+                                    <div class="col">
+
+                                    </div>
+                                    <div class="col">
+                                        {% if title.amount == title.listed %}
+                                            <span class="badge bg-success rounded-pill">{{ title.listed }}/{{ title.amount }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger rounded-pill">{{ title.listed }}/{{ title.amount }}</span>
+                                        {% endif %}
+
+
+
+
+                                    </div>
+                                    <div class="col">
+
+                                        {% if title.amount == title.listed %}
+                                            <span class="badge bg-success rounded-pill">Fully Staffed</span>
+                                        {% else %}
+                                            <span class="badge bg-danger rounded-pill">Short Staffed</span>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                            {% for emp in list_emp %}
+
+                                {% for x in range(title_range) %}
+
+                                    {% if (mega_list[emp][x]['title_index'] == title.id) and (mega_list[emp][x]['status'] == 'yes') %}
+
+                                        <li class="list-group-item">
+                                            <div class="container text-center">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+
+                                                        {% for name in names %}
+
+                                                            {% if name.username == emp %}
+
+                                                                {{ name.name }}
+
+                                                            {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </div>
+                                                    <div class="col">
+
+                                                    </div>
+                                                    <div class="col">
+
+                                                    </div>
+
+                                                    {% if (mega_list[emp][x]['working'] == 'no') %}
+
+                                                    <div class="col">
+
+                                                        <form action="/schecomp" method="post">
+                                                            <input type="hidden" id="username" name="username" value="{{ emp }}">
+                                                            <input type="hidden" id="title_id" name="title_id" value="{{ title.id }}">
+                                                            <input type="hidden" id="value" name="value" value="yes">
+                                                            <button type="submit" class="btn btn-outline-secondary btn-sm">Add</button>
+                                                        </form>
+
+                                                    </div>
+
+                                                    {% else %}
+
+                                                    <div class="col">
+
+                                                        <form action="/schecomp" method="post">
+                                                            <input type="hidden" id="username" name="username" value="{{ emp }}">
+                                                            <input type="hidden" id="title_id" name="title_id" value="{{ title.id }}">
+                                                            <input type="hidden" id="value" name="value" value="no">
+                                                            <button type="submit" class="btn btn-secondary btn-sm">Remove</button>
+                                                        </form>
+
+                                                    </div>
+
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    {% endif %}
+
+
+                                {% endfor %}
+
+                            {% endfor %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Schedule
+{% endblock %}
+
+{% block main %}
+
+    {% for x in range(length) %}
+
+        {% if emp[x]['working'] == 'yes' %}
+        <div class="mx-auto">
+            <!-- Content here -->
+            <div class="card bg-light mb-3 mx-auto" style="max-width: 18rem;">
+                <div class="card-header">{{ comp[x]['day'] }}</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ comp[x]['title'] }}</h5>
+                  <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    {% endfor %}
+
+
+
+{% endblock %}

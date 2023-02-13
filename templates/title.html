@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Title
+{% endblock %}
+
+{% block main %}
+
+
+<form action="/title" method="post">
+
+    <div class="container">
+
+        <div class="container text-center mb-3">
+
+            <div class="row">
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+                    <select class="form-select mx-auto w-auto" name="day" id="day">
+                        <option disabled selected>Day</option>
+
+                            {% for d in day %}
+                            <option value = "{{ d }}">{{ d }}</option>
+                            {% endfor %}
+
+                    </select>
+                </div>
+
+                <div class="col">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="jobtitle" name="jobtitle" placeholder="Job Title" type="text">
+                </div>
+
+                <div class="col">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" min="1" id="amount" name="amount" placeholder="Amount" type="number">
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-success" type="submit">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="container-sm">
+
+        <div class="container-sm">
+
+            {% for d in day %}
+            <ul class="list-group mt-4">
+
+
+                <li class="list-group-item list-group-item-dark">
+                    <div class="container text-center">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Title:
+                            </div>
+                            <div class="col">
+                                Amount:
+                            </div>
+                            <div class="col">
+                                {{ d }}:
+                            </div>
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+                {% for a in buffer %}
+                {% if a.day == d %}
+                <li class="list-group-item">
+                    <div class="container text-center">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                {{ a.title}}
+                            </div>
+                            <div class="col">
+                                <span class="badge bg-success rounded-pill">{{ a.amount }}</span>
+                            </div>
+                            <div class="col">
+                                {{ a.day }}
+                            </div>
+                            <div class="col">
+                                <form action="/delete" method=post class="delete-title">
+                                    <input type=hidden value="{{ a.id }}" name=id_delete />
+                                    <button type=submit class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+
+            <div>
+
+            </div>
+
+
+
+            </ul>
+            {% endfor %}
+        </div>
+</div>
+
+
+
+
+
+{% endblock %}
