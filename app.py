@@ -653,3 +653,5 @@ def scheemp():
 #CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, company TEXT NOT NULL, code TEXT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL, status TEXT NOT NULL);
 #CREATE TABLE sqlite_sequence(name,seq);
 #CREATE UNIQUE INDEX username ON users (username);
+#Edit
+#Edit 2 First Commit
