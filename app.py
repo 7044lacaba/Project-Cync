@@ -654,3 +654,4 @@ def scheemp():
 #CREATE TABLE sqlite_sequence(name,seq);
 #CREATE UNIQUE INDEX username ON users (username);
 #New Feature
+#New Fature From Cloned
